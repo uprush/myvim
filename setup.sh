@@ -30,7 +30,7 @@ mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Set up Vim
-git clone https://github.com/uprush/myvim/blob/master/vimrc ~/.vimrc
+curl https://raw.githubusercontent.com/uprush/myvim/master/vimrc > ~/.vimrc
 
 # Install Vim plugins
 vim +PluginInstall +qall
