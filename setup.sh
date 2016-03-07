@@ -34,3 +34,4 @@ curl https://raw.githubusercontent.com/uprush/myvim/master/vimrc > ~/.vimrc
 
 # Install Vim plugins
 vim +PluginInstall +qall
+
