@@ -41,7 +41,7 @@ Search for all occurences of “users” in the current file :
 /users
 ```
 
-… ant then just press * go to the next occurence of “users”
+… and then just press * go to the next occurence of “users”
 
 
 
