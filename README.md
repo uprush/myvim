@@ -7,25 +7,25 @@ curl https://raw.githubusercontent.com/uprush/myvim/master/setup.sh | sh
 ```
 
 ## The basics
-[escape] : go back to normal mode (you know, this NOT so normal mode where nothing appears when you type)
-[escape i] : enter insert mode, what you type is what appears on the screen
-[escape v] : enter visual mode, you can visually select sections of code, both vertically and horizontally
-[y] : “Yank”, aka “Copy”
-[x] : eXterminate, delete current selection, weither it’s a line, a char or a block
-[p] : wow, finally some command that makes sens : “Paste”
+* [escape] : go back to normal mode (you know, this NOT so normal mode where nothing appears when you type)
+* [escape i] : enter insert mode, what you type is what appears on the screen
+* [escape v] : enter visual mode, you can visually select sections of code, both vertically and horizontally
+* [y] : “Yank”, aka “Copy”
+* [x] : eXterminate, delete current selection, weither it’s a line, a char or a block
+* [p] : wow, finally some command that makes sens : “Paste”
 
 
 
 ## Essentials
-$ : get to the end of line
-0 : get to start of line
-dd : delete current line
-yy : copy the whole current line
-u : Undo last action
-.: (dot), repeat last action
-o : append a new line below and get into insert mode
-O : same, but this time line is inserted above the current line
-:e js/newfile.js : open a new file in js directory, and get ready to work on it
+* $ : get to the end of line
+* 0 : get to start of line
+* dd : delete current line
+* yy : copy the whole current line
+* u : Undo last action
+* .: (dot), repeat last action
+* o : append a new line below and get into insert mode
+* O : same, but this time line is inserted above the current line
+* :e js/newfile.js : open a new file in js directory, and get ready to work on it
 
 
 
