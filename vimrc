@@ -1,130 +1,219 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+"""""""""""""""""""""""""""
+" Plugins 
+"""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'jiangmiao/auto-pairs'
+Plug 'Townk/vim-autoclose'
+Plug 'tpope/vim-commentary'
+Plug 'Yggdroot/indentLine'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-ruby/vim-ruby'
+Plug 'ervandew/supertab'
+Plug 'posva/vim-vue'
+Plug 'severin-lemaignan/vim-minimap'
+Plug 'djoshea/vim-autoread'
+Plug 'slim-template/vim-slim'
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#end()
+"""""""""""""""""""""""""""
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" disable bells
+autocmd! GUIEnter * set vb t_vb=
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" Do not make vim compatible with vi.
+set nocompatible
 
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Do not create .swp files
+set noswapfile
 
+" Number the lines.
+set number
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'sickill/vim-monokai'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/indentpython.vim'
-Bundle 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
+" Show auto complete menus.
+set wildmenu
 
+" Make wildmenu behave like bash completion. Finding commands are so easy now.
+set wildmode=list:longest
+
+" Enable mouse pointing
+set mouse=a
+
+" ALWAYS spaces
+set expandtab
+
+" Fix backspace behavior 
+set backspace=indent,eol,start
+
+" Use system clipboard 
+set clipboard+=unnamed
+
+" Keep Undo history on buffer change
+set hidden
+
+" Reload files after change on Disk
+"set autoread
+"au CursorHold * checktime
+
+" Turn on syntax hightlighting.
+set syntax=on
+set nowrap
+set tabstop=2
+set shiftwidth=2
+set nocindent
+
+" Speed optimization
+set ttyfast
+set lazyredraw
+
+" Theme
+set background=dark
+set termguicolors
 colorscheme monokai
-syntax on
-
-" Airline status bar
-let g:airline_powerline_fonts = 1
-set laststatus=2
-set t_Co=256
-set ambiwidth=double
-let g:airline_theme='luna'
-
-" using Source Code Pro
-set anti enc=utf-8
 set guifont=SourceCodePro-Regular:13
 
-" ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_user_command = 'find %s -type f'
+" Airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled=1
+let g:airline_theme='bubblegum'
+let g:airline_powerline_fonts=1
+let g:airline#extensions#branch#enabled=1
 
-" ==== NERDTree ====
-" How can I map a specific key or shortcut to open NERDTree?
-map <C-b> :NERDTreeToggle<CR>
+" Indent Guides
+let g:indentLine_enabled=1
+let g:indentLine_color_term=235
+let g:indentLine_char='┆'
 
-" How can I open a NERDTree automatically when vim starts up if no files were specified?
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 
-" NERDTress File highlighting
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
- exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
- exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
+" Start Minimap
+" autocmd VimEnter * Minimap
 
-call NERDTreeHighlightFile('xml', 'yellow', 'none', 'green', '#151515')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('sh', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff00ff', '#151515')
-
-" Color schema
-if has('gui_running')
-  set background=dark
-  colorscheme solarized
-else
-  colorscheme zenburn
+" Delete buffer while keeping window layout (don't close buffer's windows).
+" Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
+if v:version < 700 || exists('loaded_bclose') || &cp
+finish
+endif
+let loaded_bclose = 1
+if !exists('bclose_multiple')
+let bclose_multiple = 1
 endif
 
-" Line numbering
-set nu
+" Display an error message.
+function! s:Warn(msg)
+  echohl ErrorMsg
+  echomsg a:msg
+  echohl NONE
+endfunction
 
-" Python
-let python_highlight_all=1
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-let g:ycm_python_binary_path = 'python'
-autocmd FileType python nnoremap <buffer> <F9> :exec '!clear; python' shellescape(@%, 1)<cr>
+" Close buffer properly with NERDtree
+" http://stackoverflow.com/questions/1864394/vim-and-nerd-tree-closing-a-buffer-properly
+"
+" Command ':Bclose' executes ':bd' to delete buffer in current window.
+" The window will show the alternate buffer (Ctrl-^) if it exists,
+" or the previous buffer (:bp), or a blank buffer if no previous.
+" Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
+" An optional argument can specify which buffer to close (name or number).
+function! s:Bclose(bang, buffer)
+if empty(a:buffer)
+let btarget = bufnr('%')
+elseif a:buffer =~ '^\d\+$'
+let btarget = bufnr(str2nr(a:buffer))
+else
+let btarget = bufnr(a:buffer)
+endif
+if btarget < 0
+call s:Warn('No matching buffer for '.a:buffer)
+return
+endif
+if empty(a:bang) && getbufvar(btarget, '&modified')
+call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
+return
+endif
+" Numbers of windows that view target buffer which we will delete.
+let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
+if !g:bclose_multiple && len(wnums) > 1
+call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
+return
+endif
+let wcurrent = winnr()
+for w in wnums
+execute w.'wincmd w'
+let prevbuf = bufnr('#')
+if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
+buffer #
+else
+bprevious
+endif
+if btarget == bufnr('%')
+" Numbers of listed buffers which are not the target to be deleted.
+let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val !=
+btarget')
+" Listed, not target, and not displayed.
+let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
+" Take the first buffer, if any (could be more intelligent).
+let bjump = (bhidden + blisted + [-1])[0]
+if bjump > 0
+execute 'buffer '.bjump
+else
+execute 'enew'.a:bang
+endif
+endif
+endfor
+execute 'bdelete'.a:bang.' '.btarget
+execute wcurrent.'wincmd w'
+endfunction
+command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose('<bang>','<args>')
+nnoremap <silent> <Leader>bd :Bclose<CR>
+nnoremap <silent> <Leader>bD :Bclose!<CR>
 
-" Python PEP8
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set textwidth=79
-set expandtab
-set autoindent
-set fileformat=unix
+" Chain vimgrep and copen
+augroup qf
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    cwindow
+    autocmd VimEnter        *     cwindow
+augroup END
 
-" Flagging unnecessary whitespace
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" Change cursor appearance depending on the current mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-" auto-complet
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+""""""""""""""""""""""""""
+" Custom bindings
+""""""""""""""""""""""""""
 
+" Browse airline tabs
+:nnoremap <C-p> :bnext<CR>
+:nnoremap <C-o> :bprevious<CR>
+
+" Map Control S for save
+noremap <silent> <C-S> :update<CR>
+vnoremap <silent> <C-S> <C-C>:update<CR>
+inoremap <silent> <C-S>  <C-O>:update<CR>
+
+" Comment block
+vnoremap <silent> <C-k> :Commentary<cr>
+
+" Close current buffer
+noremap <silent> <C-q> :Bclose!<CR>
+
+" Toggle Nerdtree
+noremap <silent> <C-f> ::NERDTreeToggle<CR>
+
+" Select all
+map <C-a> <esc>ggVG<CR>

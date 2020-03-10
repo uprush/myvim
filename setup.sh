@@ -1,37 +1,27 @@
 #bin/bash
 
-OS_FAMILY='REDHAT'
-if [ -f /etc/debian_version ]; then
-  OS_FAMILY='DEBIAN'
-fi
+BASE=$HOME
+cd $BASE
 
-GIT=`which git`
-if [[ "x$GIT" == "x" ]]; then
-  # install git
-  if [[ "$OS_FAMILY" == 'REDHAT' ]]; then
-    sudo yum install -y git
-  else
-    sudo apt-get install -y git-core
-  fi
-fi
+# Install Powerline fonts
+git clone https://github.com/powerline/fonts.git
+cd fonts && ./install.sh
 
-VIM=`which vim`
-if [[ "x$VIM" == "x" ]]; then
-  # install vim
-  if [[ "$OS_FAMILY" == 'REDHAT' ]]; then
-    sudo yum install -y vim
-  else
-    sudo apt-get install -y vim
-  fi
-fi
+# Backup original vim config
+mkdir $BASE/backup
+mv ~/.vimrc $BASE/backup/
+mv ~/.vim $BASE/backup
 
-# Install Vundle
-mkdir -p ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# Download main Vim config
+git clone https://github.com/uprush/myvim.git
+mv myvim/vimrc $BASE/.vimrc
+mv myvim/vim $BASE/.vim
 
-# Set up Vim
-curl https://raw.githubusercontent.com/uprush/myvim/master/vimrc > ~/.vimrc
+# Install vim-plug
+curl -fLo $BASE/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Install Vim plugins
-vim +PluginInstall +qall
+# This equals to :PlugInstall in Vim
+vim +PlugInstall +qall
 
