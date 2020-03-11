@@ -42,7 +42,7 @@ set wildmenu
 set wildmode=list:longest
 
 " Enable mouse pointing
-set mouse=a
+"set mouse=a
 
 " ALWAYS spaces
 set expandtab
