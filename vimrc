@@ -213,7 +213,7 @@ vnoremap <silent> <C-k> :Commentary<cr>
 noremap <silent> <C-q> :Bclose!<CR>
 
 " Toggle Nerdtree
-noremap <silent> <C-f> ::NERDTreeToggle<CR>
+noremap <silent> <C-n> ::NERDTreeToggle<CR>
 
 " Select all
 map <C-a> <esc>ggVG<CR>
